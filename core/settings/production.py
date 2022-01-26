@@ -1,4 +1,4 @@
-from core.settings.development import *
+from .development import *
 import dj_database_url
 
 DATABASES = {}
