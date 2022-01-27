@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import StudentData
 
-# Register your models here.
+# Register StudentData model in admin site
+admin.site.register(StudentData)
