@@ -1,13 +1,16 @@
+from django.test import override_settings
 from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 from djet import assertions
 
 
+@override_settings(SECURE_SSL_REDIRECT=False)
 class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
 
     def setUp(self) -> None:
         self.base_url = reverse('student_data:student_data-list')
+        print(self.base_url)
         self.signal_sent = False
 
     def signal_receiver(self, *args, **kwargs):
