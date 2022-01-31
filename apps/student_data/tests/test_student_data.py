@@ -10,7 +10,6 @@ class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
 
     def setUp(self) -> None:
         self.base_url = reverse('student_data:student_data-list')
-        print(self.base_url)
         self.signal_sent = False
 
     def signal_receiver(self, *args, **kwargs):
@@ -47,3 +46,9 @@ class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
         response = self.client.post(self.base_url, data, format='json')
 
         self.assert_status_equal(response, status.HTTP_201_CREATED)
+
+    def test_anon_cannot_get_or_retrieve(self):
+
+        response = self.client.get(self.base_url)
+
+        self.assert_status_equal(response, status.HTTP_403_FORBIDDEN)
