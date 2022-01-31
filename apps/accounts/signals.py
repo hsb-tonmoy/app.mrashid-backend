@@ -8,10 +8,9 @@ User = get_user_model()
 
 @receiver(pre_save, sender=User)
 def username_add(sender, instance, **kwargs):
-    if instance.username is 'username':
-        if instance.firstname is not None and instance.lastname is not None:
-            username = generate_unique_username(
-                instance.firstname + instance.lastname)
-        else:
-            username = None
-        instance.username = username
+    if instance.first_name is not None and instance.last_name is not None:
+        username = generate_unique_username(
+            instance.first_name + instance.last_name)
+    else:
+        return
+    instance.username = username
