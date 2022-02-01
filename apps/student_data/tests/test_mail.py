@@ -7,11 +7,11 @@ class TestMail(TestCase):
         mail.send_mail(
             'Test Subject',
             'Here is the message body.',
-            'no-reply@aemers.com',
+            'no-reply@engmedapp.com',
             ['to@example.com']
         )
         assert len(mail.outbox) == 1, "Inbox is not empty"
         assert mail.outbox[0].subject == 'Test Subject'
         assert mail.outbox[0].body == 'Here is the message body.'
-        assert mail.outbox[0].from_email == 'no-reply@aemers.com'
+        assert mail.outbox[0].from_email == 'no-reply@engmedapp.com'
         assert mail.outbox[0].to == ['to@example.com']
