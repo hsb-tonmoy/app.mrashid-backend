@@ -1,5 +1,7 @@
 from .development import *
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
@@ -13,6 +15,16 @@ ALLOWED_HOSTS = ['api.mrashid.net', '127.0.0.1', '0.0.0.0',
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CORS_ALLOW_CREDENTIALS = True
+
+sentry_sdk.init(
+    dsn=os.getenv('SENTRY_DSN'),
+
+    integrations=[DjangoIntegration()],
+
+    traces_sample_rate=1.0,
+
+    send_default_pii=True
+)
 
 LOGGING = {
     'version': 1,
