@@ -2,15 +2,11 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .utils import random_username
 import random
 import string
 
 from .managers import AccountsManager
-
-
-def random_username(size=7, chars=string.ascii_uppercase + string.digits):
-
-    return ''.join(random.choice(chars) for _ in range(size))
 
 
 class Accounts(AbstractBaseUser, PermissionsMixin):

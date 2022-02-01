@@ -11,6 +11,11 @@ USERNAME_SUFFIX_CHARS = [string.digits] * 4 + [string.ascii_letters] * (
 )
 
 
+def random_username(size=7, chars=string.ascii_uppercase + string.digits):
+
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def filter_users_by_username(*username):
     ret = get_user_model()._default_manager.filter(
         **{

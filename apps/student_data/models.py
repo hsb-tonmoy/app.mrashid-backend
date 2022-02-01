@@ -22,8 +22,8 @@ class StudentData(models.Model):
 
     # Personal Information
 
-    firstname = models.CharField(_("First Name"), max_length=255)
-    lastname = models.CharField(_("Last Name"), max_length=255)
+    first_name = models.CharField(_("First Name"), max_length=255)
+    last_name = models.CharField(_("Last Name"), max_length=255)
     email = models.EmailField(_("Email"), max_length=255)
     phone = models.CharField(_("Phone"), max_length=255)
     social_media = models.CharField(_("Social Media"), max_length=255)
@@ -38,7 +38,20 @@ class StudentData(models.Model):
 
     # English Proficiency
 
-    ielts = models.CharField(_("IELTS"), max_length=255)
+    EP_CHOICES = [
+        ('ielts', 'IELTS'),
+        ('toefl', 'TOEFL'),
+        ('duolingo', 'Duolingo'),
+        ('no-test', 'Wish to get enrolled without any test'),
+        ('moi', 'Wish to get enrolled with Medium Of Instruction'),
+        ('plan-to', 'Wish to take IELTS'),
+    ]
+
+    english_proficiency = models.CharField(
+        _("English Proficiency"), max_length=15, choices=EP_CHOICES, default='ielts')
+
+    english_proficiency_score = models.CharField(
+        _("Score"), max_length=255, blank=True, null=True)
 
     # Message
 

@@ -20,8 +20,8 @@ class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
         data = {
             "destination": "USA",
             "degree": "Undergraduate",
-            "firstname": "John",
-            "lastname": "Doe",
+            "first_name": "John",
+            "last_name": "Doe",
             "email": "john.doe@gmail.com",
             "phone": "0000000",
             "social_media": "john.doe",
@@ -40,7 +40,8 @@ class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
                     "Year": "2018"
                 }
             ],
-            "ielts": "9.0",
+            "english_proficiency": "toefl",
+            "english_proficiency_score": "112",
             "message": "How do I get a scholarship?"
         }
         response = self.client.post(self.base_url, data, format='json')
@@ -51,4 +52,4 @@ class StudentDataTest(APITestCase, assertions.StatusCodeAssertionsMixin):
 
         response = self.client.get(self.base_url)
 
-        self.assert_status_equal(response, status.HTTP_403_FORBIDDEN)
+        self.assert_status_equal(response, status.HTTP_401_UNAUTHORIZED)
