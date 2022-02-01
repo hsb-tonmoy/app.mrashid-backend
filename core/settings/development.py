@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'corsheaders',
@@ -129,9 +130,25 @@ REST_FRAMEWORK = {
 
 }
 
+# REST Auth
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'mrashid-token'
 JWT_AUTH_REFRESH_COOKIE = 'mrashid-refrsh-token'
+
+# Email Setup
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = 'no-reply@aemers.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
