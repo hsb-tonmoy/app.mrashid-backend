@@ -59,4 +59,4 @@ class StudentData(models.Model):
         _("Message"), max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.first_name + " " + self.last_name
