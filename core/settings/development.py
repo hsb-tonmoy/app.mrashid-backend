@@ -140,6 +140,10 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'mrashid-token'
 JWT_AUTH_REFRESH_COOKIE = 'mrashid-refrsh-token'
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'apps.accounts.serializers.RegistrationSerializer',
+}
+
 # Email Setup
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
