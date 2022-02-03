@@ -56,7 +56,7 @@ class StudentData(models.Model):
     # Message
 
     message = models.TextField(
-        _("Message"), max_length=255, blank=True, null=True)
+        _("Message"), blank=True, null=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
