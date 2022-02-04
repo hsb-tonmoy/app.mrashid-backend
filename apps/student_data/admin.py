@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import StudentData
+from import_export.admin import ImportExportModelAdmin
 
 
 @admin.register(StudentData)
-class StudentDataAdmin(admin.ModelAdmin):
+class StudentDataAdmin(ImportExportModelAdmin):
     list_display = ('email', 'first_name', 'last_name',
                     'destination', 'degree', 'major', 'english_proficiency')
     list_filter = ('destination', 'degree', 'major', 'english_proficiency')
