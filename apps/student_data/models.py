@@ -24,9 +24,10 @@ class StudentData(models.Model):
 
     first_name = models.CharField(_("First Name"), max_length=255)
     last_name = models.CharField(_("Last Name"), max_length=255)
-    email = models.EmailField(_("Email"), max_length=255)
+    email = models.EmailField(_("Email"), max_length=255, unique=True)
     phone = models.CharField(_("Phone"), max_length=255)
-    social_media = models.CharField(_("Social Media"), max_length=255)
+    social_media = models.CharField(
+        _("Social Media"), max_length=255, blank=True, null=True)
 
     # Major
 
