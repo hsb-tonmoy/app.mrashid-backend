@@ -1,19 +1,17 @@
 from django.test import TestCase
-from django.core.mail import send_mail, outbox
-
-import time
+from django.core import mail
 
 
 class TestMail(TestCase):
     def test_send_mail(self):
-        send_mail(
+        mail.send_mail(
             'Test Subject',
             'Here is the message body.',
-            'no-reply@engmedapp.com',
+            'no-reply@mrashid.net',
             ['to@example.com']
         )
-        assert len(outbox) == 1, "Inbox is not empty"
-        assert outbox[0].subject == 'Test Subject'
-        assert outbox[0].body == 'Here is the message body.'
-        assert outbox[0].from_email == 'no-reply@engmedapp.com'
-        assert outbox[0].to == ['to@example.com']
+        assert len(mail.outbox) == 1, "Inbox is not empty"
+        assert mail.outbox[0].subject == 'Test Subject'
+        assert mail.outbox[0].body == 'Here is the message body.'
+        assert mail.outbox[0].from_email == 'no-reply@mrashid.net'
+        assert mail.outbox[0].to == ['to@example.com']
