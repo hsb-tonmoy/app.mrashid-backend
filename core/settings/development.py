@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'corsheaders',
     'storages',
+    'post_office',
     'apps.student_data.apps.StudentDataConfig',
     'apps.accounts.apps.AccountsConfig',
 ]
@@ -74,7 +75,6 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +85,27 @@ TEMPLATES = [
             ],
         },
     },
+    {
+        'BACKEND': 'post_office.template.backends.post_office.PostOfficeTemplates',
+        'APP_DIRS': True,
+        'DIRS': [],
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.template.context_processors.request',
+            ]
+        }
+    }
 ]
+
+POST_OFFICE = {
+    'TEMPLATE_ENGINE': 'post_office',
+}
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
@@ -138,8 +158,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'mrashid-token'
-JWT_AUTH_REFRESH_COOKIE = 'mrashid-refrsh-token'
+JWT_AUTH_COOKIE = 'access'
+JWT_AUTH_REFRESH_COOKIE = 'refresh'
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'apps.accounts.serializers.RegistrationSerializer',
@@ -147,7 +167,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 # Email Setup
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_USE_TLS = True
 EMAIL_PORT = os.getenv('EMAIL_PORT')
