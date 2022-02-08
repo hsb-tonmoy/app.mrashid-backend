@@ -42,9 +42,9 @@ jobs:
           DATABASE_URL: "postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres"
           SECRET_KEY: ${{secrets.SECRET_KEY}}
           EMAIL_HOST: ${{secrets.EMAIL_HOST}}
-          EMAIL_PORT: ${{EMAIL_PORT}}
-          EMAIL_HOST_USER: ${{EMAIL_HOST_USER}}
-          EMAIL_HOST_PASSWORD: ${{EMAIL_HOST_PASSWORD}}
-          DEFAULT_FROM_EMAIL: ${{DEFAULT_FROM_EMAIL}}
+          EMAIL_PORT: ${{secrets.EMAIL_PORT}}
+          EMAIL_HOST_USER: ${{secrets.EMAIL_HOST_USER}}
+          EMAIL_HOST_PASSWORD: ${{secrets.EMAIL_HOST_PASSWORD}}
+          DEFAULT_FROM_EMAIL: ${{secrets.DEFAULT_FROM_EMAIL}}
         run: |
           python manage.py test
