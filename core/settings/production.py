@@ -14,7 +14,7 @@ ALLOWED_HOSTS = ['api.mrashid.net', '127.0.0.1', '0.0.0.0',
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-CORS_ALLOW_CREDENTIALS = True
+
 
 sentry_sdk.init(
     dsn=os.getenv('SENTRY_DSN'),
