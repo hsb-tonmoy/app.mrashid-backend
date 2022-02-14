@@ -3,10 +3,10 @@ from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from .utils import random_username
-import random
-import string
 
 from .managers import AccountsManager
+
+from apps.student_data.models import StudentData
 
 
 class Accounts(AbstractBaseUser, PermissionsMixin):
@@ -14,6 +14,13 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
         verbose_name = _("Account")
         verbose_name_plural = _("Accounts")
         ordering = ["id"]
+
+    objects = AccountsManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    # General fields
 
     email = models.EmailField(_('Email Address'), unique=True)
 
@@ -48,10 +55,23 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    USER_TYPE_CHOICES = (
+        (1, 'Student'),
+        (2, 'Consultant'),
+        (3, 'Manager'),
+        (4, 'Admin'),
+        (5, 'SuperAdmin'),
+    )
 
-    objects = AccountsManager()
+    account_type = models.PositiveSmallIntegerField(
+        _("Account Type"), choices=USER_TYPE_CHOICES, default=1)
+
+    # Relationships
+
+    student = models.OneToOneField(
+        StudentData, on_delete=models.CASCADE, related_name="user", null=True, blank=True)
+
+    # Model methods
 
     def __str__(self):
         return self.first_name + self.last_name
