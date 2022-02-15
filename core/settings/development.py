@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django_json_widget',
     'import_export',
     'rest_framework',
     'rest_framework.authtoken',
