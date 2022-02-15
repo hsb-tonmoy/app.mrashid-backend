@@ -102,6 +102,7 @@ TEMPLATES = [
 
 POST_OFFICE = {
     'TEMPLATE_ENGINE': 'post_office',
+    'DEFAULT_PRIORITY': 'now',
 }
 
 WSGI_APPLICATION = 'core.wsgi.application'

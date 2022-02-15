@@ -56,11 +56,12 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
     USER_TYPE_CHOICES = (
-        (1, 'Student'),
-        (2, 'Consultant'),
-        (3, 'Manager'),
-        (4, 'Admin'),
-        (5, 'SuperAdmin'),
+        (1, 'Visitor'),
+        (2, 'Client'),
+        (3, 'Consultant'),
+        (4, 'Manager'),
+        (5, 'Admin'),
+        (6, 'SuperAdmin'),
     )
 
     account_type = models.PositiveSmallIntegerField(
@@ -69,7 +70,7 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
     # Relationships
 
     student = models.OneToOneField(
-        StudentData, on_delete=models.CASCADE, related_name="user", null=True, blank=True)
+        StudentData, on_delete=models.SET_NULL, related_name="user", null=True, blank=True)
 
     # Model methods
 
