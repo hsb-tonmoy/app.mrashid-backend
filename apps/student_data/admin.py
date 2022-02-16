@@ -33,3 +33,8 @@ class StudentDataAdmin(ImportExportModelAdmin):
     search_fields = ('email', 'phone', 'first_name', 'last_name',
                      'destination', 'degree', 'major', 'english_proficiency')
     ordering = ('-rating',)
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.exclude(status=4)
+        return queryset
