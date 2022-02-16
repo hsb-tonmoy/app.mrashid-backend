@@ -1,3 +1,17 @@
-<ul>
-  {{widget.value}}
-</ul>
+<table>
+  <tr>
+    <th>Curriculum</th>
+    <th>Level</th>
+    <th>GPA</th>
+    <th>Year</th>
+  </tr>
+  {%for data in widget.value %}
+
+  <tr>
+    <td>{{data.curriculum}}</td>
+    <td>{{data.level}}</td>
+    <td>{{data.GPA}}</td>
+    <td>{{data.Year}}</td>
+  </tr>
+  {% endfor %}
+</table>

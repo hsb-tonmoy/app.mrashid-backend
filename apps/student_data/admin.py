@@ -16,6 +16,7 @@ class JSONEditorWidget(forms.Widget):
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
+        context['widget']['value'] = json.loads(value)
 
         return context
 
@@ -23,7 +24,6 @@ class JSONEditorWidget(forms.Widget):
 @admin.register(StudentData)
 class StudentDataAdmin(ImportExportModelAdmin):
     formfield_overrides = {
-        # fields.JSONField: {'widget': JSONEditorWidget}, # if django < 3.1
         models.JSONField: {'widget': JSONEditorWidget},
     }
 
