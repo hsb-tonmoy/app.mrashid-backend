@@ -4,7 +4,6 @@ from django import forms
 from django.contrib import admin
 from .models import StudentData
 from import_export.admin import ImportExportModelAdmin
-from django.utils.safestring import mark_safe
 
 
 class JSONEditorWidget(forms.Widget):
@@ -28,8 +27,9 @@ class StudentDataAdmin(ImportExportModelAdmin):
     }
 
     list_display = ('id', 'email', 'first_name', 'last_name',
-                    'destination', 'degree', 'major', 'english_proficiency', 'created')
-    list_filter = ('destination', 'degree', 'major', 'english_proficiency')
+                    'destination', 'degree', 'major', 'english_proficiency', 'created', 'status', 'rating')
+    list_filter = ('destination', 'degree', 'major',
+                   'english_proficiency', 'status', 'rating')
     search_fields = ('email', 'phone', 'first_name', 'last_name',
                      'destination', 'degree', 'major', 'english_proficiency')
-    ordering = ('id',)
+    ordering = ('-rating',)

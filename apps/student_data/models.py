@@ -8,7 +8,7 @@ class StudentData(models.Model):
     class Meta:
         verbose_name = _("Student Data")
         verbose_name_plural = _("Student Data")
-        ordering = ["id"]
+        ordering = ["-rating"]
 
     created = models.DateTimeField(_("Created at"), default=timezone.now)
 
@@ -59,5 +59,38 @@ class StudentData(models.Model):
     message = models.TextField(
         _("Message"), blank=True, null=True)
 
+    dr_rashids_notes = models.TextField(
+        _("Dr. Rashid's Notes"), blank=True, null=True)
+
+    # Internal Fields
+
+    STATUS_CHOICES = (
+        (0, "Default"),
+        (1, "Package Sent"),
+        (2, "Converted"),
+        (3, "Follow-up"),
+        (4, "Muted"),
+    )
+
+    status = models.PositiveSmallIntegerField(
+        _("Status"), choices=STATUS_CHOICES, default=0)
+
+    PRIORITY_RATINGS = (
+        (1, "1"),
+        (2, "2"),
+        (3, "3"),
+        (4, "4"),
+        (5, "5"),
+    )
+
+    rating = models.PositiveSmallIntegerField(
+        _("Rating"), choices=PRIORITY_RATINGS, default=1)
+
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+    def is_converted(self):
+        return self.status == 2
+
+    def is_muted(self):
+        return self.status == 4

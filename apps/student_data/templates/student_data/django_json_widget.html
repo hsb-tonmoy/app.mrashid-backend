@@ -15,3 +15,24 @@
   </tr>
   {% endfor %}
 </table>
+<textarea
+  id="{{widget.attrs.id}}_textarea"
+  name="{{ widget.name }}"
+  required=""
+  style="display: none"
+>
+{{ widget.value }}</textarea
+>
+
+<script>
+  (function() {
+
+
+      let textarea = document.getElementById("{{widget.attrs.id}}_textarea");
+
+      let json = {{ widget.value|safe }};
+
+      textarea.value=JSON.stringify(json);
+
+  })();
+</script>
