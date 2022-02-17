@@ -9,3 +9,4 @@ class StudentDataViewSet(viewsets.ModelViewSet):
     queryset = StudentData.objects.all()
     serializer_class = StudentDataSerializer
     permission_classes = [StudentDataPermissions, OnlyOwnerandStaffCanRetrieve]
+    lookup_field = "user__username"

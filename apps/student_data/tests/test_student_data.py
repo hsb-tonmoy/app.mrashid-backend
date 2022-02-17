@@ -95,21 +95,23 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
     def test_owner_can_retrieve(self):
 
         self.student_data_url = reverse(
-            'student_data:student_data-detail', kwargs={'pk': self.student_data_id})
+            'student_data:student_data-list')
 
         self.client.credentials(HTTP_AUTHORIZATION='JWT ' + self.user_JWT())
 
-        response = self.client.get(self.student_data_url)
+        response = self.client.get(
+            self.student_data_url + self.user.username + "/")
 
         self.assert_status_equal(response, status.HTTP_200_OK)
 
     def test_non_owner_cannot_retrieve(self):
 
         self.student_data_url = reverse(
-            'student_data:student_data-detail', kwargs={'pk': self.student_data_id})
+            'student_data:student_data-list')
 
         self.client.credentials(HTTP_AUTHORIZATION='JWT')
 
-        response = self.client.get(self.student_data_url)
+        response = self.client.get(
+            self.student_data_url + self.user.username + "/")
 
         self.assert_status_equal(response, status.HTTP_401_UNAUTHORIZED)
