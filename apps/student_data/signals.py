@@ -5,12 +5,13 @@ from post_office import mail
 from .models import StudentData
 import datetime
 import pytz
+import sys
 
 
 @receiver(post_save, sender=StudentData)
 def send_welcome_email(sender, instance, created, **kwargs):
 
-    if created:
+    if created and not (len(sys.argv) > 1 and sys.argv[1] == 'runserver'):
 
         current_time = datetime.datetime.now()
 

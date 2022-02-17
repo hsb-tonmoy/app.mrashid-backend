@@ -7,17 +7,16 @@ class StudentDataPermissions(permissions.BasePermission):
     Permissions to allow anon users to create data and restrict from viewing it.
     """
 
-    blocked_from_anon = ['GET']
-    allowed_to_anon = ['POST']
-
     def has_permission(self, request, view):
         if request.user.is_superuser or request.user.is_staff:
             return True
 
         if not request.user.is_authenticated and view.action == "create":
             return True
-        elif not request.user.is_authenticated:
+        elif view.action in ["list", "destroy"]:
             return False
+        else:
+            return True
 
 
 class OnlyOwnerandStaffCanRetrieve(permissions.BasePermission):
