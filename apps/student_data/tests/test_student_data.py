@@ -63,7 +63,8 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
 
     def setUp(self) -> None:
 
-        self.base_url = reverse('student_data:student_data-list')
+        self.student_url = reverse('student_data:student_data-list')
+        self.user_login_url = "/api/v1/auth/login/"
 
         self.user_email = 'johndoe@gmail.com'
         self.user_password = 'top_secret'
@@ -72,27 +73,43 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
             first_name='john', last_name='doe', email=self.user_email, password=self.user_password)
 
         student_data = self.client.post(
-            self.base_url, data, format='json')
+            self.student_url, data, format='json')
 
         self.student_data_id = student_data.data['id']
 
         self.student = StudentData.objects.get(id=self.student_data_id)
 
-        self.signal_sent = False
-
-    def signal_receiver(self, *args, **kwargs):
-        self.signal_sent = True
-
-    def test_owner_can_retrieve(self):
-
         if self.user:
             self.user.student = self.student
             self.user.save()
+
+    def user_JWT(self):
+        user_data = self.client.post(self.user_login_url, {
+                                     "email": self.user_email, "password": self.user_password}, format='json')
+
+        if (user_data.status_code == status.HTTP_200_OK):
+            return user_data.data['access_token']
+
+        return
+
+    def test_owner_can_retrieve(self):
+
         self.student_data_url = reverse(
             'student_data:student_data-detail', kwargs={'pk': self.student_data_id})
 
-        self.client.login(email=self.user_email, password=self.user_password)
+        self.client.credentials(HTTP_AUTHORIZATION='JWT ' + self.user_JWT())
 
         response = self.client.get(self.student_data_url)
 
         self.assert_status_equal(response, status.HTTP_200_OK)
+
+    def test_non_owner_cannot_retrieve(self):
+
+        self.student_data_url = reverse(
+            'student_data:student_data-detail', kwargs={'pk': self.student_data_id})
+
+        self.client.credentials(HTTP_AUTHORIZATION='JWT')
+
+        response = self.client.get(self.student_data_url)
+
+        self.assert_status_equal(response, status.HTTP_401_UNAUTHORIZED)
