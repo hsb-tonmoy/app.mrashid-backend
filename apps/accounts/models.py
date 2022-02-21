@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 from .utils import random_username
 
 from .managers import AccountsManager
@@ -19,6 +20,8 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    history = HistoricalRecords()
 
     # General fields
 

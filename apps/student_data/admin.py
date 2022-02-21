@@ -3,6 +3,7 @@ from django.db import models
 from django import forms
 from django.contrib import admin
 from .models import StudentData
+from simple_history.admin import SimpleHistoryAdmin
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -21,7 +22,7 @@ class JSONEditorWidget(forms.Widget):
 
 
 @admin.register(StudentData)
-class StudentDataAdmin(ImportExportModelAdmin):
+class StudentDataAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }

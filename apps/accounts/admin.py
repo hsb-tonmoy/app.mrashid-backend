@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
 from .models import Accounts
 
 
-class AccountsAdmin(UserAdmin):
+class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
     model = Accounts
     list_display = ('student', 'email', 'first_name', 'last_name',
                     'is_staff', 'is_active',)

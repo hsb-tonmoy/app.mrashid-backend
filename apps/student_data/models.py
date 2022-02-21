@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 from django.utils import timezone
 
 
@@ -9,6 +10,8 @@ class StudentData(models.Model):
         verbose_name = _("Student Data")
         verbose_name_plural = _("Student Data")
         ordering = ["-rating"]
+
+    history = HistoricalRecords()
 
     created = models.DateTimeField(_("Created at"), default=timezone.now)
 
