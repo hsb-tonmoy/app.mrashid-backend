@@ -14,12 +14,13 @@ class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
     fieldsets = (
         (None, {'fields': ('student', 'email', 'username',
          'first_name', 'last_name', 'password')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Permissions', {'fields': ('account_type', 'is_staff', 'is_active')}),
+        ('Other', {'fields': ('date_joined',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('student', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'is_active')}
+            'fields': ('student', 'email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'is_active', 'account_type')}
          ),
     )
     search_fields = ('email', 'first_name', 'last_name',)
