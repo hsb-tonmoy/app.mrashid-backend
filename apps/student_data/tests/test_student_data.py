@@ -66,7 +66,7 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
         self.student_url = reverse('student_data:student_data-list')
         self.user_login_url = "/api/v1/auth/login/"
 
-        self.user_email = 'johndoe@gmail.com'
+        self.user_email = 'john.doe@gmail.com'
         self.user_password = 'top_secret'
 
         self.user = User.objects.create_user(
@@ -100,7 +100,7 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
         self.client.credentials(HTTP_AUTHORIZATION='JWT ' + self.user_JWT())
 
         response = self.client.get(
-            self.student_data_url + self.user.username + "/")
+            self.student_data_url + str(self.student_data_id) + "/")
 
         self.assert_status_equal(response, status.HTTP_200_OK)
 
@@ -112,6 +112,6 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
         self.client.credentials(HTTP_AUTHORIZATION='JWT')
 
         response = self.client.get(
-            self.student_data_url + self.user.username + "/")
+            self.student_data_url + str(self.student_data_id) + "/")
 
         self.assert_status_equal(response, status.HTTP_401_UNAUTHORIZED)
