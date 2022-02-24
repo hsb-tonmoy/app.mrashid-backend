@@ -9,7 +9,10 @@ class StudentDataRetrieveSerializer(serializers.ModelSerializer):
 
 
 class StudentDataListSerializer(serializers.ModelSerializer):
+
+    username = serializers.CharField(source="user.username")
+
     class Meta:
         model = StudentData
-        fields = ('id', 'email', 'first_name', 'last_name', 'destination',
+        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'destination',
                   'degree', 'major', 'english_proficiency', 'created', 'status', 'rating')

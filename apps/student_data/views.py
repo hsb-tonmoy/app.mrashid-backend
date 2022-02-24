@@ -15,7 +15,7 @@ class StudentDataViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     search_fields = ['first_name', 'last_name', 'email', 'phone', 'social_media',
                      'destination', 'degree', 'major', 'english_proficiency', 'message']
-    lookup_field = "user__username"
+    lookup_field = 'id'
     ordering = ['-rating', 'id']
 
     list_serializer_class = StudentDataListSerializer
