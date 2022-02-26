@@ -1,10 +1,17 @@
+import pytz
+from datetime import datetime
 from rest_framework import viewsets
 from rest_framework import filters
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from rest_framework.pagination import LimitOffsetPagination
+from django.template.loader import get_template
+from post_office import mail
 from .models import StudentData
 from .serializers import StudentDataRetrieveSerializer, StudentDataListSerializer
 from .permissions import StudentDataPermissions, OnlyOwnerandStaffCanRetrieve
-from .pagination import StudentDataPagination
 
 
 class StudentDataViewSet(viewsets.ModelViewSet):
@@ -27,3 +34,42 @@ class StudentDataViewSet(viewsets.ModelViewSet):
                 return self.list_serializer_class
 
         return super(StudentDataViewSet, self).get_serializer_class()
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def send_student_email(request):
+    if request.query_params:
+        data_id = request.query_params.get('id')
+    else:
+        return Response({"error": "Please provide the user ID"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        data = StudentData.objects.get(id=data_id)
+    except StudentData.DoesNotExist:
+        return Response({"error": "Data does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.data:
+        try:
+            subject = request.data['subject']
+            message = request.data['message']
+        except KeyError:
+            return Response({"error": "Please provide the subject and the message"}, status=status.HTTP_400_BAD_REQUEST)
+
+        context = {
+            'first_name': data.first_name,
+            'last_name': data.last_name,
+            'message': message,
+        }
+
+        template = get_template(
+            'student_data/student_custom_email.html').render(context)
+
+        try:
+
+            mail.send([data.email], "Mamoon Rashid <no-reply@mrashid.net>", subject=subject,
+                      html_message=template, priority='now')
+        except Exception:
+            return Response({"error": "Email delivery unsuccessful"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response({"subject": subject, "message": message}, status=status.HTTP_200_OK)
