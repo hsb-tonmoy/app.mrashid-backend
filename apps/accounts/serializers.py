@@ -17,7 +17,7 @@ class RegistrationSerializer(RegisterSerializer):
         user.save(update_fields=['first_name', 'last_name'])
 
 
-class UserDetailsSerializer(serializers.ModelSerializer):
+class CustomUserDetailsSerializer(UserDetailsSerializer):
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'first_name',

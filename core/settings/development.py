@@ -166,7 +166,7 @@ JWT_AUTH_COOKIE = 'access'
 JWT_AUTH_REFRESH_COOKIE = 'refresh'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'apps.accounts.serializers.UserDetailsSerializer',
+    'USER_DETAILS_SERIALIZER': 'apps.accounts.serializers.CustomUserDetailsSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
