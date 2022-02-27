@@ -18,8 +18,10 @@ class RegistrationSerializer(RegisterSerializer):
 
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
+    profile_pic = serializers.ImageField()
+
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'first_name',
-                  'last_name', 'account_type')
+                  'last_name', 'account_type', 'profile_pic')
         read_only_fields = ('email', 'username')

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'storages',
     'post_office',
     'simple_history',
+    'imagekit',
     'apps.student_data.apps.StudentDataConfig',
     'apps.accounts.apps.AccountsConfig',
 ]

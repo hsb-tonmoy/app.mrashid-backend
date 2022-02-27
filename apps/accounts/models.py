@@ -2,12 +2,21 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 from simple_history.models import HistoricalRecords
 from .utils import random_username
-
+from random import randint
 from .managers import AccountsManager
 
 from apps.student_data.models import StudentData
+
+
+def upload_to_path(instance, filename):
+    extension = filename.split(".")[-1].lower()
+    file_id = randint(10000000, 99999999)
+    path = f'profiles/{file_id}_{instance.last_name}.png'
+    return path
 
 
 class Accounts(AbstractBaseUser, PermissionsMixin):
@@ -40,6 +49,10 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
         blank=True,
         default=random_username
     )
+    profile_pic = ProcessedImageField(upload_to=upload_to_path,
+                                      processors=[ResizeToFill(270, 270)],
+                                      format='PNG',
+                                      options={'quality': 60}, default='profiles/avatar.png', null=True, blank=True)
     first_name = models.CharField(_('First name'), max_length=150, blank=True)
     last_name = models.CharField(_('Last name'), max_length=150, blank=True)
     is_staff = models.BooleanField(
