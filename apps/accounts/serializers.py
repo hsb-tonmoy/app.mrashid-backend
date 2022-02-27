@@ -23,5 +23,5 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
     class Meta:
         model = User
         fields = ('pk', 'username', 'email', 'first_name',
-                  'last_name', 'account_type', 'profile_pic')
+                  'last_name', 'account_type', 'profile_pic', 'student_id')
         read_only_fields = ('email', 'username')
