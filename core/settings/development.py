@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'django_filters',
     'corsheaders',
     'storages',
     'post_office',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'imagekit',
     'apps.student_data.apps.StudentDataConfig',
     'apps.accounts.apps.AccountsConfig',
+    'apps.notes.apps.NotesConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,9 +151,6 @@ REST_FRAMEWORK = {
 
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
-
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 50
 
 }
 
