@@ -13,7 +13,7 @@ class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
                    'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('student', 'email', 'username',
-         'first_name', 'last_name', 'password')}),
+         'first_name', 'last_name', 'profile_pic', 'password')}),
         ('Permissions', {'fields': ('account_type', 'is_staff', 'is_active')}),
         ('Other', {'fields': ('date_joined',)}),
     )
