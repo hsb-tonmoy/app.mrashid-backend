@@ -24,3 +24,7 @@ class NoteCreateSerializer(serializers.ModelSerializer):
         model = Note
         fields = ('student', 'title', 'description', 'category',
                   'internal', 'complete', 'date_modified', 'priority', 'date_added', 'created_by')
+
+    def to_representation(self, instance):
+        serializer = NoteListSerializer(instance)
+        return serializer.data

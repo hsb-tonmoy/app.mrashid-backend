@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'import_export',
     'rest_framework',
+    'drf_spectacular',
     'rest_framework.authtoken',
     'allauth',
     'allauth.account',
@@ -152,8 +153,15 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'app-mrashid-api',
+    'DESCRIPTION': 'REST API for app.mrashid.net',
+    'VERSION': '1.0.0',
+}
 
 # REST Auth
 
