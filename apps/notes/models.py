@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from simple_history.models import HistoricalRecords
 from apps.student_data.models import StudentData
 from apps.accounts.models import Accounts
 
@@ -26,6 +26,8 @@ class Note(models.Model):
         verbose_name_plural = _("Notes")
         ordering = ["id"]
 
+    history = HistoricalRecords()
+
     student = models.ForeignKey(
         StudentData, on_delete=models.CASCADE, related_name='notes')
     title = models.CharField(_("Title"), max_length=255)
@@ -39,6 +41,7 @@ class Note(models.Model):
         NoteCategory, on_delete=models.CASCADE, related_name='notes')
 
     internal = models.BooleanField(_("Internal Note?"), default=False)
+    complte = models.BooleanField(_("Complete?"), default=False)
 
     PRIORITY_CHOICES = (
         (1, 'Low'),
