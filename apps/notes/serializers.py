@@ -9,9 +9,16 @@ class NoteCategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class NoteSerializer(serializers.ModelSerializer):
+class NoteListSerializer(serializers.ModelSerializer):
     category = NoteCategorySerializer(read_only=False)
     created_by = CustomUserDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Note
+        fields = "__all__"
+
+
+class NoteCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Note
