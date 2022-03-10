@@ -22,4 +22,5 @@ class NoteCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Note
-        fields = "__all__"
+        fields = ('student', 'title', 'description', 'category',
+                  'internal', 'complete', 'date_modified', 'priority', 'date_added', 'created_by')

@@ -41,7 +41,7 @@ class Note(models.Model):
         NoteCategory, on_delete=models.CASCADE, related_name='notes')
 
     internal = models.BooleanField(_("Internal Note?"), default=False)
-    complte = models.BooleanField(_("Complete?"), default=False)
+    complete = models.BooleanField(_("Complete?"), default=False)
 
     PRIORITY_CHOICES = (
         (1, 'Low'),
