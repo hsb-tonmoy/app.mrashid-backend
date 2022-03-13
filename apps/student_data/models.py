@@ -97,3 +97,12 @@ class StudentData(models.Model):
 
     def is_muted(self):
         return self.status == 4
+
+
+class StudentProgress(models.Model):
+    class Meta:
+        verbose_name = _("Student Progress")
+        verbose_name_plural = _("Student Progress")
+        ordering = ["-created"]
+
+    history = HistoricalRecords()
