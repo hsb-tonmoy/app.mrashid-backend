@@ -137,3 +137,4 @@ GitHub.sublime-settings
 .history
 
 core/.env
+core/__pycache__/*.pyc

@@ -2,10 +2,18 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.loader import get_template
 from post_office import mail
-from .models import StudentData
+from .models import StudentData, StudentProgress
 import datetime
 import pytz
 import sys
+
+
+@receiver(post_save, sender=StudentData)
+def create_student_progress(sender, instance, created, **kwargs):
+    if created:
+        student_progress = StudentProgress(
+            student_data=instance, account_creation=2)
+        student_progress.save()
 
 
 @receiver(post_save, sender=StudentData)

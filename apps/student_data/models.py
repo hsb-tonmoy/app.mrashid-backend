@@ -103,6 +103,50 @@ class StudentProgress(models.Model):
     class Meta:
         verbose_name = _("Student Progress")
         verbose_name_plural = _("Student Progress")
-        ordering = ["-created"]
 
     history = HistoricalRecords()
+
+    student_data = models.OneToOneField(
+        StudentData, on_delete=models.CASCADE, related_name="progress")
+
+    STEP_STATUS = (
+        (1, 'Pending'),
+        (2, 'Incomplete'),
+        (3, 'Completed'),
+    )
+
+    account_creation = models.PositiveSmallIntegerField(
+        _("Account Creation"), choices=STEP_STATUS, default=1)
+
+    file_opening = models.PositiveSmallIntegerField(
+        _("File Opening"), choices=STEP_STATUS, default=1)
+
+    docu_submission = models.PositiveSmallIntegerField(
+        _("Submission of Documents"), choices=STEP_STATUS, default=1)
+
+    application_submission = models.PositiveSmallIntegerField(
+        _("Submission of Application"), choices=STEP_STATUS, default=1)
+
+    i20_reception = models.PositiveSmallIntegerField(
+        _("Receipt of I-20"), choices=STEP_STATUS, default=1)
+
+    sevis_payment = models.PositiveSmallIntegerField(
+        _("SEVIS Payment"), choices=STEP_STATUS, default=1)
+
+    ds160_submission = models.PositiveSmallIntegerField(
+        _("Submission of DS-160"), choices=STEP_STATUS, default=1)
+
+    visa_fee = models.PositiveSmallIntegerField(
+        _("Visa Processing Fee Payment"), choices=STEP_STATUS, default=1)
+
+    visa_interview = models.PositiveSmallIntegerField(
+        _("Visa Interview Preparation"), choices=STEP_STATUS, default=1)
+
+    visa_collection = models.PositiveSmallIntegerField(
+        _("Visa Collection"), choices=STEP_STATUS, default=1)
+
+    pre_dept_session = models.PositiveSmallIntegerField(
+        _("Pre-departure Session"), choices=STEP_STATUS, default=1)
+
+    welcoming_in_us = models.PositiveSmallIntegerField(
+        _("Welcoming in the USA"), choices=STEP_STATUS, default=1)

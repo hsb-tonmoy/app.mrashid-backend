@@ -1,5 +1,3 @@
-import pytz
-from datetime import datetime
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework import status
@@ -9,8 +7,8 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.pagination import LimitOffsetPagination
 from django.template.loader import get_template
 from post_office import mail
-from .models import StudentData
-from .serializers import StudentDataRetrieveSerializer, StudentDataListSerializer
+from .models import StudentData, StudentProgress
+from .serializers import StudentDataRetrieveSerializer, StudentDataListSerializer, StudentProgressSerializer
 from .permissions import StudentDataPermissions, OnlyOwnerandStaffCanRetrieve
 
 
@@ -34,6 +32,13 @@ class StudentDataViewSet(viewsets.ModelViewSet):
                 return self.list_serializer_class
 
         return super(StudentDataViewSet, self).get_serializer_class()
+
+
+class StudentProgressViewset(viewsets.ModelViewSet):
+    queryset = StudentProgress.objects.all()
+    serializer_class = StudentProgressSerializer
+    permission_classes = [OnlyOwnerandStaffCanRetrieve]
+    lookup_field = 'student_data__id'
 
 
 @api_view(['POST'])

@@ -2,7 +2,7 @@ import json
 from django.db import models
 from django import forms
 from django.contrib import admin
-from .models import StudentData
+from .models import StudentData, StudentProgress
 from simple_history.admin import SimpleHistoryAdmin
 from import_export.admin import ImportExportModelAdmin
 
@@ -39,3 +39,9 @@ class StudentDataAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
         queryset = super().get_queryset(request)
         queryset = queryset.exclude(status=4)
         return queryset
+
+
+@admin.register(StudentProgress)
+class StudentProgress(SimpleHistoryAdmin):
+
+    list_display = ('id', 'student_data')

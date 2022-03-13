@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import StudentData
+from .models import StudentData, StudentProgress
 
 
 class StudentDataRetrieveSerializer(serializers.ModelSerializer):
@@ -16,3 +16,9 @@ class StudentDataListSerializer(serializers.ModelSerializer):
         model = StudentData
         fields = ('id', 'email', 'username', 'first_name', 'last_name', 'destination',
                   'degree', 'major', 'english_proficiency', 'created', 'status', 'rating')
+
+
+class StudentProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentProgress
+        fields = "__all__"
