@@ -45,3 +45,5 @@ class StudentDataAdmin(ImportExportModelAdmin, SimpleHistoryAdmin):
 class StudentProgress(SimpleHistoryAdmin):
 
     list_display = ('id', 'student_data')
+    search_fields = ('student_data',)
+    ordering = ('id',)
