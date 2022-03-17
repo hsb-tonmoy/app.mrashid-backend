@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'apps.student_data.apps.StudentDataConfig',
     'apps.accounts.apps.AccountsConfig',
     'apps.notes.apps.NotesConfig',
+    'apps.document_submission.apps.DocumentSubmissionConfig',
 ]
 
 MIDDLEWARE = [
