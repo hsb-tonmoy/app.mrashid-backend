@@ -8,9 +8,20 @@ class DocumentCategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DocumentSerializer(serializers.ModelSerializer):
+class DocumentListSerializer(serializers.ModelSerializer):
     category = DocumentCategorySerializer()
 
     class Meta:
         model = Document
         fields = "__all__"
+
+
+class DocumentCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Document
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        serializer = DocumentListSerializer(instance)
+        return serializer.data
