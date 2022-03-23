@@ -19,6 +19,9 @@ class NoteListSerializer(serializers.ModelSerializer):
 
 
 class NoteCreateSerializer(serializers.ModelSerializer):
+    created_by = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = Note
