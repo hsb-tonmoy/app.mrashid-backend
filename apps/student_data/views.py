@@ -37,7 +37,6 @@ class StudentDataViewSet(viewsets.ModelViewSet):
 class StudentProgressViewset(viewsets.ModelViewSet):
     queryset = StudentProgress.objects.all()
     serializer_class = StudentProgressSerializer
-    permission_classes = [OnlyOwnerandStaffCanRetrieve]
     lookup_field = 'student_data__id'
 
 

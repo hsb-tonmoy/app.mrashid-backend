@@ -3,7 +3,7 @@ from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 
-CALLBACK_URL_YOU_SET_ON_GOOGLE = 'http://localhost:8000'
+CALLBACK_URL_YOU_SET_ON_GOOGLE = 'http://localhost:3000/login/google'
 
 
 class FacebookLogin(SocialLoginView):

@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 from django.dispatch import receiver
 from .utils import generate_unique_username
 
+from apps.student_data.models import StudentData
+
 User = get_user_model()
 
 
@@ -47,3 +49,12 @@ def add_or_update_user_group(sender, instance, created, **kwargs):
             group = Group.objects.get(name="Admins")
 
         instance.groups.add(group)
+
+
+@receiver(post_save, sender=User)
+def account_studentdata_match(sender, instance, created, **kwargs):
+    if created:
+        user_email = instance.email
+        studentdata = StudentData.objects.get(email=user_email)
+        if studentdata:
+            instance.student = studentdata
