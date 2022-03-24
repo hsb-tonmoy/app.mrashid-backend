@@ -55,6 +55,9 @@ def add_or_update_user_group(sender, instance, created, **kwargs):
 def account_studentdata_match(sender, instance, created, **kwargs):
     if created:
         user_email = instance.email
-        studentdata = StudentData.objects.get(email=user_email)
-        if studentdata:
+        try:
+            studentdata = StudentData.objects.get(email=user_email)
+        except StudentData.DoesNotExist:
+            return
+        else:
             instance.student = studentdata
