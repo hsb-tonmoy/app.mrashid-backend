@@ -32,6 +32,23 @@ class StudentData(models.Model):
     social_media = models.CharField(
         _("Social Media"), max_length=255, blank=True, null=True)
 
+    address_line_1 = models.CharField(
+        _("Address Line 1"), max_length=255, blank=True, null=True)
+    address_line_2 = models.CharField(
+        _("Address Line 2"), max_length=255, blank=True, null=True)
+    city = models.CharField(_("City"), max_length=255, blank=True, null=True)
+    state = models.CharField(_("State"), max_length=255, blank=True, null=True)
+    zip_code = models.CharField(
+        _("Zip Code"), max_length=255, blank=True, null=True)
+    country = models.CharField(
+        _("Country"), max_length=255, blank=True, null=True)
+
+    date_of_birth = models.DateField(_("Date of Birth"), blank=True, null=True)
+    gender = models.CharField(
+        _("Gender"), max_length=100, null=True, blank=True)
+    marital_status = models.CharField(
+        _("Marital Status"), max_length=255, blank=True, null=True)
+
     # Major
 
     major = models.CharField(_("Major"), max_length=255)
