@@ -29,7 +29,7 @@ class OnlyOwnerandStaffCanRetrieve(permissions.BasePermission):
         if request.user.is_superuser or request.user.is_staff:
             return True
 
-        if request.user.is_authenticated and obj.user == request.user:
+        if request.user.is_authenticated and (obj.user and obj.user == request.user):
             return True
         else:
             return False

@@ -61,3 +61,4 @@ def account_studentdata_match(sender, instance, created, **kwargs):
             return
         else:
             instance.student = studentdata
+            instance.save()
