@@ -4,6 +4,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 from djet import assertions
 
+from allauth.account.models import EmailAddress
 from apps.student_data.models import StudentData
 
 User = get_user_model()
@@ -82,6 +83,10 @@ class StudentDataOwnerCanRetrieve(APITestCase, assertions.StatusCodeAssertionsMi
         if self.user:
             self.user.student = self.student
             self.user.save()
+
+        email_address = EmailAddress(
+            user=self.user, email=self.user_email, verified=True, primary=True)
+        email_address.save()
 
     def user_JWT(self):
         user_data = self.client.post(self.user_login_url, {
