@@ -166,9 +166,15 @@ SPECTACULAR_SETTINGS = {
 
 # REST Auth
 
+ACCOUNT_ADAPTER = 'apps.accounts.adapter.CustomAccountAdapter'
+
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "app.mrashid.net - "
+
+ACCOUNT_EMAIL_CONFIRMATION_URL = 'http://localhost:3000/register/verify-email/'
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'access'
@@ -191,6 +197,8 @@ SIMPLE_JWT = {
 
     'AUTH_HEADER_TYPES': ('JWT',),
 }
+
+GOOGLE_OAUTH_CALLBACK_URL = 'http://localhost:3000/login/google'
 
 
 # Email Setup
