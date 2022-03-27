@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/v1/', include('apps.notes.urls', namespace='notes')),
     path('api/v1/', include('apps.document_submission.urls',
          namespace='document_submission')),
+    path('api/v1/', include('apps.application_submission.urls',
+         namespace='application_submission')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api/v1/auth/', include('allauth.urls'), name='socialaccount_signup'),
