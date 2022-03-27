@@ -42,5 +42,3 @@ LOGGING = {
         },
     },
 }
-ACCOUNT_EMAIL_CONFIRMATION_URL = 'https://app.mrashid.net/register/verify-email/'
-GOOGLE_OAUTH_CALLBACK_URL = 'https://app.mrashid.net/login/google'
