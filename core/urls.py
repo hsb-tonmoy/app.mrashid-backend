@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import re_path, path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from apps.accounts.views import FacebookLogin, GoogleLogin
@@ -7,6 +7,7 @@ from apps.accounts.views import FacebookLogin, GoogleLogin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('apps.student_data.urls', namespace='student_data')),
+    path('api/v1/', include('apps.accounts.urls', namespace='accounts')),
     path('api/v1/', include('apps.notes.urls', namespace='notes')),
     path('api/v1/', include('apps.document_submission.urls',
          namespace='document_submission')),
@@ -17,6 +18,8 @@ urlpatterns = [
     path('api/v1/auth/', include('allauth.urls'), name='socialaccount_signup'),
     path('api/v1/auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     path('api/v1/auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path("api/v1/messages-drf/", include("django_messages_drf.urls",
+                                         namespace="django_messages_drf")),
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/v1/schema/swagger-ui/',
          SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

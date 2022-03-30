@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'post_office',
     'simple_history',
     'imagekit',
+    'django_messages_drf',
     'apps.student_data.apps.StudentDataConfig',
     'apps.accounts.apps.AccountsConfig',
     'apps.notes.apps.NotesConfig',
