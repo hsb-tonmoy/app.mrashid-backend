@@ -4,7 +4,7 @@ from rest_framework import serializers
 from dj_rest_auth.serializers import UserDetailsSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from .models import Accounts
-from apps.student_data.serializers import StudentDataListSerializer
+from apps.student_data.serializers import StudentDataListSerializer, StudentDataBriefSerializer
 
 User = get_user_model()
 
@@ -31,29 +31,37 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
 
 
 class AccountsListSerializer(serializers.ModelSerializer):
-    student = StudentDataListSerializer(read_only=True)
+    student = StudentDataBriefSerializer()
 
     class Meta:
         model = Accounts
-        fields = ('id', 'email', 'username', 'profile_pic', 'first_name', 'last_name',
-                  'is_staff', 'is_superuser', 'is_active', 'date_joined', 'account_type', 'student', 'last_login')
+        exclude = ('password', )
 
 
 class AccountsRetrieveSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    student = StudentDataListSerializer()
 
-    def create(self, validated_data):
-        user = super(AccountsRetrieveSerializer, self).create(validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+    class Meta:
+        model = Accounts
+        fields = "__all__"
 
-    def update(self, instance, validated_data):
-        user = super(AccountsRetrieveSerializer, self).update(
-            instance, validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+
+class AccountsUpdateSerializer(serializers.ModelSerializer):
+    # password = serializers.CharField(write_only=True, required=False)
+
+    # def create(self, validated_data):
+    #     user = super(AccountsUpdateSerializer, self).create(validated_data)
+    #     user.set_password(validated_data['password'])
+    #     user.save()
+    #     return user
+
+    # def update(self, instance, validated_data):
+    #     user = super(AccountsUpdateSerializer, self).update(
+    #         instance, validated_data)
+    #     if validated_data['password']:
+    #         user.set_password(validated_data['password'])
+    #     user.save()
+    #     return user
 
     class Meta:
         model = Accounts

@@ -23,3 +23,10 @@ class StudentDataListSerializer(serializers.ModelSerializer):
         model = StudentData
         fields = ('id', 'email', 'username', 'first_name', 'last_name', 'destination',
                   'degree', 'major', 'english_proficiency', 'created', 'status', 'rating')
+
+
+class StudentDataBriefSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StudentData
+        fields = ('id', 'email', 'first_name', 'last_name',)
