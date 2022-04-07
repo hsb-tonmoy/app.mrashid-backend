@@ -30,6 +30,14 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         read_only_fields = ('email', 'username')
 
 
+class AccountsBriefSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(source='get_full_name', read_only=True)
+
+    class Meta:
+        model = Accounts
+        fields = ('id', 'username', 'full_name', )
+
+
 class AccountsListSerializer(serializers.ModelSerializer):
     student = StudentDataBriefSerializer()
 
