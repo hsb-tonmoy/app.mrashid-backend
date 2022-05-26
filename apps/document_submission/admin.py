@@ -7,9 +7,9 @@ from .models import DocumentCategory, Document
 @admin.register(DocumentCategory)
 class DocumentCategoryAdmin(SimpleHistoryAdmin):
 
-    list_display = ('id', 'name', 'slug')
-    search_fields = ('name', 'slug')
-    ordering = ('id',)
+    list_display = ('code', 'id', 'name', 'slug')
+    search_fields = ('name', 'slug', 'code')
+    ordering = ('code',)
 
 
 @admin.register(Document)

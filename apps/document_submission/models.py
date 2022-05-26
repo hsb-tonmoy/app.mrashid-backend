@@ -13,6 +13,7 @@ class DocumentCategory(models.Model):
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    code = models.CharField(max_length=255, default="00")
     slug = models.SlugField(_('Slug'), max_length=150, unique=True)
 
     def __str__(self):
