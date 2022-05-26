@@ -9,10 +9,11 @@ class DocumentCategory(models.Model):
     class Meta:
         verbose_name = _("Document Category")
         verbose_name_plural = _("Document Categories")
-        ordering = ["id"]
+        ordering = ["code"]
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    code = models.CharField(max_length=255, default="00")
     slug = models.SlugField(_('Slug'), max_length=150, unique=True)
 
     def __str__(self):
