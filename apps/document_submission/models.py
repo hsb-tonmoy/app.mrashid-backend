@@ -9,7 +9,7 @@ class DocumentCategory(models.Model):
     class Meta:
         verbose_name = _("Document Category")
         verbose_name_plural = _("Document Categories")
-        ordering = ["id"]
+        ordering = ["code"]
 
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
