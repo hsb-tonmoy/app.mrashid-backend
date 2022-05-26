@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'apps.notes.apps.NotesConfig',
     'apps.document_submission.apps.DocumentSubmissionConfig',
     'apps.application_submission.apps.ApplicationSubmissionConfig',
+    'apps.knowledgebase.apps.KnowledgebaseConfig',
 ]
 
 MIDDLEWARE = [
