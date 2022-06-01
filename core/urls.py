@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import re_path, path, include
+from django.views.generic import RedirectView, TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 from apps.accounts.views import FacebookLogin, GoogleLogin
@@ -15,6 +16,9 @@ urlpatterns = [
          namespace='application_submission')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
     path('api/v1/auth/registration/', include('dj_rest_auth.registration.urls')),
+    re_path(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$',
+            TemplateView.as_view(template_name="password_reset_confirm.html"),
+            name='password_reset_confirm'),
     path('api/v1/auth/', include('allauth.urls'), name='socialaccount_signup'),
     path('api/v1/auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
     path('api/v1/auth/google/', GoogleLogin.as_view(), name='google_login'),
