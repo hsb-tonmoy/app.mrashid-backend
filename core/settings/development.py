@@ -185,6 +185,7 @@ JWT_AUTH_REFRESH_COOKIE = 'refresh'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'apps.accounts.serializers.CustomUserDetailsSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'apps.accounts.serializers.CustomPasswordResetSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
@@ -200,6 +201,7 @@ SIMPLE_JWT = {
 
     'AUTH_HEADER_TYPES': ('JWT',),
 }
+
 
 GOOGLE_OAUTH_CALLBACK_URL = os.getenv('GOOGLE_OAUTH_CALLBACK_URL')
 
