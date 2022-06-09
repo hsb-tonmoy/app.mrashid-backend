@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from rest_framework.pagination import LimitOffsetPagination
 from django.template.loader import get_template
+import django_filters.rest_framework
 from post_office import mail
 from .models import StudentData, StudentProgress
 from .serializers import StudentDataRetrieveSerializer, StudentDataListSerializer, StudentProgressSerializer
@@ -17,7 +18,9 @@ class StudentDataViewSet(viewsets.ModelViewSet):
     serializer_class = StudentDataRetrieveSerializer
     permission_classes = [StudentDataPermissions, OnlyOwnerandStaffCanRetrieve]
     pagination_class = LimitOffsetPagination
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter,
+                       django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ('status',)
     search_fields = ['first_name', 'last_name', 'email', 'phone', 'social_media',
                      'destination', 'degree', 'major', 'english_proficiency', 'message']
     lookup_field = 'id'
