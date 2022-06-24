@@ -5,6 +5,14 @@ from apps.student_data.models import StudentData
 from apps.accounts.models import Accounts
 
 
+PRIORITY_CHOICES = (
+    (1, 'Low'),
+    (2, 'Medium'),
+    (3, 'High'),
+    (4, 'Urgent'),
+)
+
+
 class NoteCategory(models.Model):
     class Meta:
         verbose_name = _("Note Category")
@@ -42,13 +50,6 @@ class Note(models.Model):
 
     internal = models.BooleanField(_("Internal Note?"), default=False)
     complete = models.BooleanField(_("Complete?"), default=False)
-
-    PRIORITY_CHOICES = (
-        (1, 'Low'),
-        (2, 'Medium'),
-        (3, 'High'),
-        (4, 'Urgent'),
-    )
 
     priority = models.PositiveSmallIntegerField(
         _("Note Priority"), choices=PRIORITY_CHOICES, default=1)
