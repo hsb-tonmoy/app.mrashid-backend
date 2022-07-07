@@ -103,3 +103,12 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
+
+
+class ClientFollowing(models.Model):
+    manager = models.OneToOneField(Accounts, on_delete=models.CASCADE)
+    following = models.ManyToManyField(
+        Accounts, symmetrical=False, related_name='followers', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.manager.first_name} {self.manager.last_name} Following'
