@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
-from .models import Accounts
+from .models import Accounts, ClientFollowing
 
 
 class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
@@ -27,4 +27,9 @@ class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
     ordering = ('id',)
 
 
+class ClientFollowingAdmin(SimpleHistoryAdmin):
+    model = ClientFollowing
+
+
 admin.site.register(Accounts, AccountsAdmin)
+admin.site.register(ClientFollowing, ClientFollowingAdmin)
