@@ -12,7 +12,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from dj_rest_auth.serializers import UserDetailsSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
-from .models import Accounts
+from .models import Accounts, ClientFollowing
 from apps.student_data.serializers import StudentDataListSerializer, StudentDataBriefSerializer
 
 User = get_user_model()
@@ -132,3 +132,11 @@ class CustomPasswordResetSerializer(PasswordResetSerializer):
     @property
     def password_reset_form_class(self):
         return CustomAllAuthPasswordResetForm
+
+
+class ClientFollowingSerializer(serializers.ModelSerializer):
+    following = AccountsBriefSerializer(many=True)
+
+    class Meta:
+        model = ClientFollowing
+        fields = ('manager', 'following',)

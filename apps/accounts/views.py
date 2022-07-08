@@ -8,8 +8,8 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 from django.conf import settings
 
-from .models import Accounts
-from .serializers import AccountsListSerializer, AccountsRetrieveSerializer, AccountsUpdateSerializer
+from .models import Accounts, ClientFollowing
+from .serializers import AccountsListSerializer, AccountsRetrieveSerializer, AccountsUpdateSerializer, ClientFollowingSerializer
 from .permissions import OnlyAdminandStaffCanRetrieve
 
 GOOGLE_OAUTH_CALLBACK_URL = settings.GOOGLE_OAUTH_CALLBACK_URL
@@ -47,3 +47,9 @@ class AccountsViewset(viewsets.ModelViewSet):
                 return self.update_serializer_class
 
         return super(AccountsViewset, self).get_serializer_class()
+
+
+class ClientFollowingViewset(viewsets.ModelViewSet):
+    queryset = ClientFollowing.objects.all()
+    serializer_class = ClientFollowingSerializer
+    lookup_field = 'manager__id'
