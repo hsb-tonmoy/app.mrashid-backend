@@ -106,9 +106,19 @@ class Accounts(AbstractBaseUser, PermissionsMixin):
 
 
 class ClientFollowing(models.Model):
-    manager = models.OneToOneField(Accounts, on_delete=models.CASCADE)
-    following = models.ManyToManyField(
-        Accounts, symmetrical=False, related_name='followers', blank=True, null=True)
+    manager = models.ForeignKey(
+        Accounts, related_name="clients", on_delete=models.CASCADE)
+    client = models.ForeignKey(
+        Accounts, related_name="managers", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['manager', 'client'],  name="unique_followers")
+        ]
+
+        ordering = ["-created"]
 
     def __str__(self):
-        return f'{self.manager.first_name} {self.manager.last_name} Following'
+        return f'{self.manager.first_name} following {self.client.first_name}'

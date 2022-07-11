@@ -1,3 +1,4 @@
+import django_filters.rest_framework
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework.pagination import LimitOffsetPagination
@@ -52,4 +53,5 @@ class AccountsViewset(viewsets.ModelViewSet):
 class ClientFollowingViewset(viewsets.ModelViewSet):
     queryset = ClientFollowing.objects.all()
     serializer_class = ClientFollowingSerializer
-    lookup_field = 'manager__id'
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filterset_fields = ['manager__id']

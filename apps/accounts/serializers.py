@@ -135,8 +135,8 @@ class CustomPasswordResetSerializer(PasswordResetSerializer):
 
 
 class ClientFollowingSerializer(serializers.ModelSerializer):
-    following = AccountsBriefSerializer(many=True)
+    client = AccountsBriefSerializer()
 
     class Meta:
         model = ClientFollowing
-        fields = ('manager', 'following',)
+        fields = '__all__'
