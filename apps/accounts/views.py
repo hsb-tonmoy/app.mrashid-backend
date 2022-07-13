@@ -54,4 +54,4 @@ class ClientFollowingViewset(viewsets.ModelViewSet):
     queryset = ClientFollowing.objects.all()
     serializer_class = ClientFollowingSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ['manager__id']
+    filterset_fields = ('manager',)

@@ -7,7 +7,7 @@ from .models import Accounts, ClientFollowing
 
 class AccountsAdmin(UserAdmin, SimpleHistoryAdmin):
     model = Accounts
-    list_display = ('student', 'email', 'first_name', 'last_name',
+    list_display = ('id', 'student', 'email', 'first_name', 'last_name',
                     'is_staff', 'is_active',)
     list_filter = ('email', 'first_name', 'last_name',
                    'is_staff', 'is_active',)

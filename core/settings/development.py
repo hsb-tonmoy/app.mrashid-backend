@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'storages',
     'post_office',
     'simple_history',
+    'notifications',
     'imagekit',
     'django_messages_drf',
     'apps.student_data.apps.StudentDataConfig',
