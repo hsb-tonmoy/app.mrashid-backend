@@ -1,6 +1,7 @@
 import django_filters.rest_framework
 from rest_framework import viewsets
 from rest_framework import filters
+from rest_framework.fields import CurrentUserDefault
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
@@ -9,8 +10,10 @@ from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from dj_rest_auth.registration.views import SocialLoginView
 from django.conf import settings
 
+from notifications.models import Notification
+
 from .models import Accounts, ClientFollowing
-from .serializers import AccountsListSerializer, AccountsRetrieveSerializer, AccountsUpdateSerializer, ClientFollowingSerializer
+from .serializers import AccountsListSerializer, AccountsRetrieveSerializer, AccountsUpdateSerializer, ClientFollowingSerializer, NotificationSerializer
 from .permissions import OnlyAdminandStaffCanRetrieve
 
 GOOGLE_OAUTH_CALLBACK_URL = settings.GOOGLE_OAUTH_CALLBACK_URL
@@ -55,3 +58,13 @@ class ClientFollowingViewset(viewsets.ModelViewSet):
     serializer_class = ClientFollowingSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ('manager',)
+
+
+class NotificationViewset(viewsets.ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.notifications.unread()

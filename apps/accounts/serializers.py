@@ -12,6 +12,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from dj_rest_auth.serializers import UserDetailsSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from notifications.models import Notification
 from .models import Accounts, ClientFollowing
 from apps.student_data.serializers import StudentDataListSerializer, StudentDataBriefSerializer
 
@@ -139,4 +140,12 @@ class ClientFollowingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ClientFollowing
+        fields = '__all__'
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    actor = AccountsBriefSerializer(read_only=True)
+
+    class Meta:
+        model = Notification
         fields = '__all__'

@@ -23,6 +23,7 @@ def username_add(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def add_or_update_user_group(sender, instance, created, **kwargs):
     if created:
+        group = Group.objects.get(name="Visitors")
         if instance.account_type == 1:
             if not Group.objects.filter(name="Visitors").exists():
                 Group.objects.create(name="Visitors")
